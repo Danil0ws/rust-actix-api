@@ -1,10 +1,10 @@
 use actix_web::{App, HttpServer};
 
+mod models;
 mod routes;
 mod services;
-mod models;
 
-#[actix_web::main] // or #[tokio::main]
+#[actix_web::main]
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| App::new().service(routes::cep::cep_find))
         .bind(("127.0.0.1", 8080))?

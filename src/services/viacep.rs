@@ -33,9 +33,11 @@ impl Ceps for ViaCep {
     }
 }
 
-pub struct CepFactory {}
+pub struct CepFactory<T> {
+    pub test_field: Option<T>,
+}
 
-impl CepFactory {
+impl<T> CepFactory<T> {
     pub async fn get(cep: &str) -> HashMap<String, Value> {
         let request = <ViaCep>::instance().request(cep.to_string()).await;
 

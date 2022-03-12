@@ -1,11 +1,11 @@
 use actix_web::{get, web};
 
 pub use crate::models::cep::CepResponse;
-use crate::services::viacep::CepFactory;
+use crate::services::viacep::{CepFactory, ViaCep};
 
 #[get("/cep/{zip_code}")]
 pub async fn cep_find(zip_code: web::Path<String>) -> web::Json<CepResponse> {
-    let find = CepFactory::get(&zip_code.to_string()).await;
+    let find = CepFactory::<ViaCep>::get(&zip_code.to_string()).await;
     println!("{}", &find.clone().get("cep").unwrap().to_string());
     web::Json(CepResponse {
         cep: find.clone().get("cep").unwrap().to_string(),
